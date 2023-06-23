@@ -1,11 +1,15 @@
-import { Header } from "./components";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { More } from "./pages/More";
 
 function App() {
   return (
-    <>
-      <Header />
-      <h1>Hellow World</h1>
-    </>
+    <BrowserRouter basename="/github-blog">
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/more" Component={More} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
