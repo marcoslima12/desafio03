@@ -1,13 +1,18 @@
 import { GithubInfo, Header } from "../../components";
 import { BoxModel } from "../../components/Box";
+import { PageContainer } from "../../components/PageContainer";
+import { PostCard } from "../../components/Post";
+import { PostsContainer, StyledForm } from "./styles";
 import {
   BoxContent,
   Container,
-  Content,
   ContentInfo,
   GitHubLink,
   GithubInfoContainer,
   NameGithubContainer,
+  PostsAmount,
+  PostsHeader,
+  PostsTitle,
   StyledImage,
   UserName,
 } from "./styles";
@@ -15,8 +20,7 @@ import { ArrowSquareOut } from "@phosphor-icons/react";
 
 export function Home() {
   return (
-    <Container>
-      <Header />
+    <PageContainer>
       <BoxModel>
         <BoxContent>
           <StyledImage
@@ -38,13 +42,26 @@ export function Home() {
               ullam quos nemo ab.
             </p>
             <GithubInfoContainer>
-              <GithubInfo infoType="username"/>
-              <GithubInfo infoType="company"/>
-              <GithubInfo infoType="followers_number"/>
+              <GithubInfo infoType="username" />
+              <GithubInfo infoType="company" />
+              <GithubInfo infoType="followers_number" />
             </GithubInfoContainer>
           </ContentInfo>
         </BoxContent>
       </BoxModel>
-    </Container>
+      <PostsHeader>
+        <PostsTitle>Publicações</PostsTitle>
+        <PostsAmount>6 publicações</PostsAmount>
+      </PostsHeader>
+      <StyledForm>
+        <input type="text" placeholder="Buscar conteúdo" />
+      </StyledForm>
+      <PostsContainer>
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+      </PostsContainer>
+    </PageContainer>
   );
 }
