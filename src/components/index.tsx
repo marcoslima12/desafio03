@@ -1,3 +1,4 @@
 import { Header } from "./Header";
+import { GithubInfo } from "./GithubInfo";
 
-export { Header };
+export { Header, GithubInfo };

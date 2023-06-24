@@ -1,3 +1,4 @@
-import Cover from './Cover.png';
+import Cover from "./Cover.png";
+import GitHubLogo from "./githubLog.svg";
 
-export { Cover }
+export { Cover, GitHubLogo };
