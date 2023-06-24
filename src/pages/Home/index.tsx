@@ -30,20 +30,23 @@ type UserInfo = {
   login: string;
 };
 
+type UserSearchType = {
+  user: string;
+}
+
 export function Home() {
   const [userData, setUserData] = useState<UserInfo>({} as UserInfo);
   const [inputUser, setInputUser] = useState<string>("marcoslima12");
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm<UserSearchType>();
 
-  const OnSubmit = (data: any) => {
-    console.log(data);
-    setInputUser(data);
-    console.log(inputUser);
+  const OnSubmit = (data: UserSearchType) => {
+    setInputUser(data.user);
+    reset();
   };
 
   const getUserInfo = async () => {
     await axios
-      .get(`https://api.github.com/users/${encodeURIComponent(inputUser)}`)
+      .get(`https://api.github.com/users/${inputUser}`)
       .then(function (response) {
         setUserData(response.data);
         console.log(userData);
@@ -60,6 +63,7 @@ export function Home() {
 
   return (
     <PageContainer>
+      
       <BoxModel>
         <BoxContent>
           <StyledImage src={userData?.avatar_url} alt="" />
@@ -89,10 +93,6 @@ export function Home() {
           </ContentInfo>
         </BoxContent>
       </BoxModel>
-      <PostsHeader>
-        <PostsTitle>Publicações</PostsTitle>
-        <PostsAmount>6 publicações</PostsAmount>
-      </PostsHeader>
       <StyledUserForm onSubmit={handleSubmit(OnSubmit)}>
         <input
           type="text"
@@ -100,6 +100,11 @@ export function Home() {
           {...register("user")}
         />
       </StyledUserForm>
+      <PostsHeader>
+        <PostsTitle>Publicações</PostsTitle>
+        <PostsAmount>6 publicações</PostsAmount>
+      </PostsHeader>
+      
       <StyledSearchForm>
         <input type="text" placeholder="Buscar conteúdo" />
       </StyledSearchForm>

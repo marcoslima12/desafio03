@@ -131,7 +131,7 @@ export const StyledForm = styled.form`
 
 export const StyledUserForm = styled(StyledForm)`
   width: 40%;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
 
 export const StyledSearchForm = styled(StyledForm)`
