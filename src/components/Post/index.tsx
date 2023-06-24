@@ -1,17 +1,21 @@
 import { Container, Description, TitleTimeContainer } from "./styles";
 
-export function PostCard() {
+
+interface PostProps{
+  title: string;
+  description: string;
+  created_at: string;
+}
+
+export function PostCard(props: PostProps) {
   return (
     <Container>
       <TitleTimeContainer>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex facilis nam numquam laborum voluptatem, rerum necessitatibus beatae labore hic cupiditate enim amet! Aliquid vero nisi, laudantium sed reiciendis numquam molestias!</h1>
-        <p>Há 1 dia</p>
+        <h1>{props.title}</h1>
+        <p>Há {props.created_at}</p>
       </TitleTimeContainer>
       <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Similique
-          hic impedit laudantium! Tenetur debitis, ex excepturi perferendis sed
-          ipsa cumque similique temporibus quaerat ipsum, non adipisci neque rem
-          voluptas. Saepe.
+        {props.description || 'Description here'}
         </Description>
     </Container>
   );
