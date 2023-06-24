@@ -30,40 +30,90 @@ type UserInfo = {
   login: string;
 };
 
+type IssueType = {
+  title: string;
+  body: string;
+  created_at: string;
+};
+
+type IssuesInfo = {
+  total_count: number;
+  incomplete_results: boolean;
+  items: IssueType[];
+};
+
 type UserSearchType = {
   user: string;
-}
+};
 
 export function Home() {
   const [userData, setUserData] = useState<UserInfo>({} as UserInfo);
   const [inputUser, setInputUser] = useState<string>("marcoslima12");
+  const [issuesData, setIssuesData] = useState<IssuesInfo>({} as IssuesInfo);
   const { register, handleSubmit, reset } = useForm<UserSearchType>();
+
+  function converterDataParaTexto(dataDesejada: Date): string {
+    const dataAtual = new Date();
+    const diferencaEmMilissegundos =
+      dataAtual.getTime() - dataDesejada.getTime();
+    const diferencaEmSegundos = Math.floor(diferencaEmMilissegundos / 1000);
+    const diferencaEmMinutos = Math.floor(diferencaEmSegundos / 60);
+    const diferencaEmHoras = Math.floor(diferencaEmMinutos / 60);
+    const diferencaEmDias = Math.floor(diferencaEmHoras / 24);
+    const diferencaEmMeses = Math.floor(diferencaEmDias / 30);
+    const diferencaEmAnos = Math.floor(diferencaEmDias / 365);
+
+    if (diferencaEmAnos > 0) {
+      return `há ${diferencaEmAnos} ano(s)`;
+    } else if (diferencaEmMeses > 0) {
+      return `há ${diferencaEmMeses} mes(es)`;
+    } else if (diferencaEmDias > 0) {
+      return `há ${diferencaEmDias} dia(s)`;
+    } else if (diferencaEmHoras > 0) {
+      return `há ${diferencaEmHoras} hora(s)`;
+    } else if (diferencaEmMinutos > 0) {
+      return `há ${diferencaEmMinutos} minuto(s)`;
+    } else {
+      return `há alguns segundos`;
+    }
+  }
 
   const OnSubmit = (data: UserSearchType) => {
     setInputUser(data.user);
     reset();
   };
 
+  const getUserIssues = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.github.com/search/issues?q=user:${inputUser}`
+      );
+
+      console.log("AQUII" + response.data);
+      setIssuesData(response.data);
+      console.log(issuesData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const getUserInfo = async () => {
-    await axios
-      .get(`https://api.github.com/users/${inputUser}`)
-      .then(function (response) {
-        setUserData(response.data);
-        console.log(userData);
-      })
-      .catch(function (error) {
-        // manipula erros da requisição
-        console.error(error);
-      });
+    try {
+      const response = await axios.get(
+        `https://api.github.com/users/${inputUser}`
+      );
+      setUserData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getUserInfo();
+    getUserIssues();
   }, [inputUser]);
 
   return (
     <PageContainer>
-      
       <BoxModel>
         <BoxContent>
           <StyledImage src={userData?.avatar_url} alt="" />
@@ -102,17 +152,25 @@ export function Home() {
       </StyledUserForm>
       <PostsHeader>
         <PostsTitle>Publicações</PostsTitle>
-        <PostsAmount>6 publicações</PostsAmount>
+        <PostsAmount>{issuesData.total_count}</PostsAmount>
       </PostsHeader>
-      
+
       <StyledSearchForm>
         <input type="text" placeholder="Buscar conteúdo" />
       </StyledSearchForm>
       <PostsContainer>
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {issuesData.items?.map((issue) => {
+          const dataDesejada = new Date(issue.created_at); // Substitua pela data desejada
+          const resultado = converterDataParaTexto(dataDesejada);
+
+          return (
+            <PostCard
+              title={issue.title}
+              description={issue.body}
+              created_at={resultado}
+            />
+          );
+        })}
       </PostsContainer>
     </PageContainer>
   );
