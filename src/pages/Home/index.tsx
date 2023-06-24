@@ -3,7 +3,7 @@ import { GithubInfo } from "../../components";
 import { BoxModel } from "../../components/Box";
 import { PageContainer } from "../../components/PageContainer";
 import { PostCard } from "../../components/Post";
-import { PostsContainer, StyledForm } from "./styles";
+import { PostsContainer, StyledUserForm, StyledSearchForm } from "./styles";
 import {
   BoxContent,
   ContentInfo,
@@ -18,6 +18,7 @@ import {
 } from "./styles";
 import { ArrowSquareOut } from "@phosphor-icons/react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 type UserInfo = {
   name: string;
@@ -31,10 +32,18 @@ type UserInfo = {
 
 export function Home() {
   const [userData, setUserData] = useState<UserInfo>({} as UserInfo);
+  const [inputUser, setInputUser] = useState<string>("marcoslima12");
+  const { register, handleSubmit } = useForm();
 
-  useEffect(() => {
-    axios
-      .get("https://api.github.com/users/marcoslima12")
+  const OnSubmit = (data: any) => {
+    console.log(data);
+    setInputUser(data);
+    console.log(inputUser);
+  };
+
+  const getUserInfo = async () => {
+    await axios
+      .get(`https://api.github.com/users/${encodeURIComponent(inputUser)}`)
       .then(function (response) {
         setUserData(response.data);
         console.log(userData);
@@ -43,7 +52,11 @@ export function Home() {
         // manipula erros da requisição
         console.error(error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, [inputUser]);
 
   return (
     <PageContainer>
@@ -60,7 +73,9 @@ export function Home() {
             </NameGithubContainer>
             <p>{userData?.bio || "User bio"}</p>
             <GithubInfoContainer>
-              <GithubInfo infoType="username" username={userData?.login} />
+              {userData?.login && (
+                <GithubInfo infoType="username" username={userData?.login} />
+              )}
               {userData?.company && (
                 <GithubInfo infoType="company" company={userData?.company} />
               )}
@@ -78,9 +93,16 @@ export function Home() {
         <PostsTitle>Publicações</PostsTitle>
         <PostsAmount>6 publicações</PostsAmount>
       </PostsHeader>
-      <StyledForm>
+      <StyledUserForm onSubmit={handleSubmit(OnSubmit)}>
+        <input
+          type="text"
+          placeholder="Busque pelo user"
+          {...register("user")}
+        />
+      </StyledUserForm>
+      <StyledSearchForm>
         <input type="text" placeholder="Buscar conteúdo" />
-      </StyledForm>
+      </StyledSearchForm>
       <PostsContainer>
         <PostCard />
         <PostCard />

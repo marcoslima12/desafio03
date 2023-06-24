@@ -111,7 +111,6 @@ export const PostsHeader = styled.div`
 `;
 
 export const StyledForm = styled.form`
-  width: 100%;
   input {
     box-sizing: border-box;
     padding: 0.75rem 0 0.75rem 1rem;
@@ -124,7 +123,19 @@ export const StyledForm = styled.form`
       font-size: 1rem;
       font-family: "Roboto", sans-serif;
     }
+    color: var(--base-label, #3a536b);
+      font-size: 1rem;
+      font-family: "Roboto", sans-serif;
   }
+`;
+
+export const StyledUserForm = styled(StyledForm)`
+  width: 40%;
+  margin-bottom: 1rem;
+`;
+
+export const StyledSearchForm = styled(StyledForm)`
+  width: 100%
 `;
 
 export const PostsContainer = styled.div`
