@@ -1,19 +1,23 @@
 import { GithubLogo, Buildings, Users } from "@phosphor-icons/react";
 import { Container } from "./styles";
+import { NumberLiteralType } from "typescript";
 
-interface GithubInfoProps {
+type GithubInfoProps = {
   infoType?: "username" | "company" | "followers_number";
+  username?: string;
+  followers_number?: number;
+  company?: string;
 }
 
-export function GithubInfo({ infoType }: GithubInfoProps) {
+export function GithubInfo(props: GithubInfoProps) {
   let componentToRender: JSX.Element | null = null;
 
-  switch (infoType) {
+  switch (props.infoType) {
     case "username":
       componentToRender = (
         <Container>
-          <GithubLogo size={18} />
-          name
+          <GithubLogo color="white" size={18} />
+          {props.username}
         </Container>
       );
       break;
@@ -21,7 +25,7 @@ export function GithubInfo({ infoType }: GithubInfoProps) {
       componentToRender = (
         <Container>
           <Buildings size={18} />
-          name
+          {props.company}
         </Container>
       );
       break;
@@ -29,7 +33,7 @@ export function GithubInfo({ infoType }: GithubInfoProps) {
       componentToRender = (
         <Container>
           <Users size={18} />
-          name
+          {props.followers_number}
         </Container>
       );
       break;
