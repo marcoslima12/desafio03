@@ -7,7 +7,7 @@ type GithubInfoProps = {
   username?: string;
   followers_number?: number;
   company?: string;
-}
+};
 
 export function GithubInfo(props: GithubInfoProps) {
   let componentToRender: JSX.Element | null = null;
@@ -16,7 +16,7 @@ export function GithubInfo(props: GithubInfoProps) {
     case "username":
       componentToRender = (
         <Container>
-          <GithubLogo color="white" size={18} />
+          <GithubLogo color="#3A536B" size={18} />
           {props.username}
         </Container>
       );

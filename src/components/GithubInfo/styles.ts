@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   //width: 4rem;
-  color: var(--base-subtitle, #c4d4e3);
+  color: var(--base-subtitle, #3A536B);
 
   /* Text/Text M */
   gap: 0.35rem;
