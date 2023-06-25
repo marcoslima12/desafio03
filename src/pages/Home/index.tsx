@@ -34,6 +34,7 @@ type IssueType = {
   title: string;
   body: string;
   created_at: string;
+  html_url: string;
 };
 
 type IssuesInfo = {
@@ -86,7 +87,6 @@ export function Home() {
     reset();
   };
 
-  /*https://api.github.com/repos/{owner}/{repo}/issues/{issue_number} */
 
   useEffect(() => {
     if (search === "") {
@@ -106,9 +106,9 @@ export function Home() {
         `https://api.github.com/search/issues?q=user:${inputUser}`
       );
 
-      console.log("AQUII" + response.data);
+      /* console.log("AQUII" + response.data); */
       setIssuesData(response.data);
-      console.log(issuesData);
+     /*  console.log(issuesData); */
     } catch (error) {
       console.error(error);
     }
@@ -193,6 +193,7 @@ export function Home() {
               title={issue.title}
               description={issue.body}
               created_at={resultado}
+              toGithub_url={issue.html_url}
             />
           );
         })}

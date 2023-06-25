@@ -8,18 +8,28 @@ import {
   GithubInfoContainer,
 } from "./styles";
 import { GithubInfo } from "../../components";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
+
+/* https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}  */
 
 export function Post() {
+
+
+
+  const location = useLocation();
+  const {prop} = queryString.parse(location.search);
+
   return (
     <PageContainer>
       <BoxModel>
         <BoxContent>
           <LinksContainer>
-            <StyledLink target="_blank" href="#">
+            <StyledLink href='/'>
               <CaretLeft size={16} />
               VOLTAR
             </StyledLink>
-            <StyledLink target="_blank" href="#">
+            <StyledLink target="_blank" href={prop?.toString()}>
               VER NO GITHUB
               <ArrowSquareOut size={16} />
             </StyledLink>

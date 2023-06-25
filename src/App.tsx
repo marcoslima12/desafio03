@@ -4,7 +4,7 @@ import { Post } from "./pages/Post";
 
 function App() {
   return (
-    <BrowserRouter basename="/github-blog">
+    <BrowserRouter>
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/post" Component={Post} />
