@@ -34,7 +34,8 @@ type IssueType = {
   title: string;
   body: string;
   created_at: string;
-  html_url: string;
+  url: string;
+  comments: number;
 };
 
 type IssuesInfo = {
@@ -193,7 +194,7 @@ export function Home() {
               title={issue.title}
               description={issue.body}
               created_at={resultado}
-              toGithub_url={issue.html_url}
+              toGithub_url={issue.url}
             />
           );
         })}
