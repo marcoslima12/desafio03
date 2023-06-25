@@ -6,13 +6,15 @@ import {
   StyledLink,
   LinksContainer,
   GithubInfoContainer,
+  IssueBodyContainer,
 } from "./styles";
 import { GithubInfo } from "../../components";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import search from "antd/es/transfer/search";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import ReactHtmlParser from "react-html-parser";
 
 /* https://api.github.com/repos/{owner}/{repo}/issues/{issue_number} */
 
@@ -38,7 +40,7 @@ export function Post() {
     try {
       const response = await axios.get(`${prop}`);
       setIssue(response.data);
-      console.log(issue);
+      console.log(issue.body);
     } catch (error) {
       console.error(error);
     }
@@ -73,6 +75,10 @@ export function Post() {
           </GithubInfoContainer>
         </BoxContent>
       </BoxModel>
+
+      <IssueBodyContainer>
+        <ReactMarkdown>{issue.body}</ReactMarkdown>
+      </IssueBodyContainer>
     </PageContainer>
   );
 }

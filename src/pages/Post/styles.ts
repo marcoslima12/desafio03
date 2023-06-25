@@ -16,7 +16,6 @@ export const StyledLink = styled.a`
   line-height: 160%;
   text-transform: uppercase;
   text-decoration: none;
-
 `;
 
 export const BoxContent = styled.div`
@@ -33,7 +32,6 @@ export const BoxContent = styled.div`
     font-size: 1.5rem;
     font-family: "Roboto";
     font-weight: 700;
-    line-height: 130%;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     overflow: hidden;
@@ -54,4 +52,13 @@ export const GithubInfoContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 3rem;
+`;
+
+export const IssueBodyContainer = styled.div`
+  color: #afc2d4;
+  font-size: 1rem;
+  font-family: 'Roboto';
+  font-weight: 700;
+  line-height: 160%;
+  padding: 2.5rem 2rem;
 `;

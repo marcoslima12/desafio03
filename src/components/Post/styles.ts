@@ -41,8 +41,9 @@ export const Description = styled.p`
   color: #afc2d4;
   font-size: 1rem;
   font-family: "Roboto", sans-serif;
-  -webkit-line-clamp: 3;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
+   -webkit-line-clamp: 3;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    width: 100%;
 `;
