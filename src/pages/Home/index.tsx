@@ -3,7 +3,10 @@ import { GithubInfo } from "../../components";
 import { BoxModel } from "../../components/Box";
 import { PageContainer } from "../../components/PageContainer";
 import { PostCard } from "../../components/Post";
-import { PostsContainer, StyledUserForm, StyledSearchForm } from "./styles";
+import {
+  PostsContainer,
+  StyledForm,
+} from "./styles";
 import {
   BoxContent,
   ContentInfo,
@@ -44,11 +47,13 @@ type IssuesInfo = {
 
 type UserSearchType = {
   user: string;
+  search: string;
 };
 
 export function Home() {
   const [userData, setUserData] = useState<UserInfo>({} as UserInfo);
-  const [inputUser, setInputUser] = useState<string>("marcoslima12");
+  const [inputUser, setInputUser] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const [issuesData, setIssuesData] = useState<IssuesInfo>({} as IssuesInfo);
   const { register, handleSubmit, reset } = useForm<UserSearchType>();
 
@@ -80,8 +85,25 @@ export function Home() {
 
   const OnSubmit = (data: UserSearchType) => {
     setInputUser(data.user);
+    setSearch(data.search);
     reset();
   };
+
+  /*https://api.github.com/repos/{owner}/{repo}/issues/{issue_number} */
+
+  useEffect(()=>{
+    if(search===''){
+      getUserInfo();
+      getUserIssues();
+    }
+    else if(search!==''){
+      getUserInfo();
+      getUserIssuesSearch();
+    }
+    else {
+      return
+    }
+  }, [inputUser, search])
 
   const getUserIssues = async () => {
     try {
@@ -96,6 +118,21 @@ export function Home() {
       console.error(error);
     }
   };
+
+  const getUserIssuesSearch = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.github.com/search/issues?q=${search}%20user:${inputUser}`
+      );
+
+      console.log("AQUII" + response.data);
+      setIssuesData(response.data);
+      console.log(issuesData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const getUserInfo = async () => {
     try {
       const response = await axios.get(
@@ -106,11 +143,6 @@ export function Home() {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    getUserInfo();
-    getUserIssues();
-  }, [inputUser]);
 
   return (
     <PageContainer>
@@ -143,21 +175,25 @@ export function Home() {
           </ContentInfo>
         </BoxContent>
       </BoxModel>
-      <StyledUserForm onSubmit={handleSubmit(OnSubmit)}>
-        <input
-          type="text"
-          placeholder="Busque pelo user"
-          {...register("user")}
-        />
-      </StyledUserForm>
+
       <PostsHeader>
         <PostsTitle>Publicações</PostsTitle>
         <PostsAmount>{issuesData.total_count}</PostsAmount>
       </PostsHeader>
+      <StyledForm onSubmit={handleSubmit(OnSubmit)}>
+        <input
+          type="text"
+          placeholder="Busque pelo user"
+          {...register("user", { required: true })}
+        />
+        <input
+          type="text"
+          placeholder="Buscar conteúdo do usuário"
+          {...register("search")}
+        />
+        <button type="submit">ENVIAR</button>
+      </StyledForm>
 
-      <StyledSearchForm>
-        <input type="text" placeholder="Buscar conteúdo" />
-      </StyledSearchForm>
       <PostsContainer>
         {issuesData.items?.map((issue) => {
           const dataDesejada = new Date(issue.created_at); // Substitua pela data desejada
