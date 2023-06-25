@@ -5,8 +5,6 @@ import { PageContainer } from "../../components/PageContainer";
 import { PostCard } from "../../components/Post";
 import {
   PostsContainer,
-  StyledUserForm,
-  StyledSearchForm,
   StyledForm,
 } from "./styles";
 import {
@@ -145,11 +143,6 @@ export function Home() {
       console.log(error);
     }
   };
-
-  /* useEffect(() => {
-    getUserInfo();
-    getUserIssues();
-  }, [inputUser]); */
 
   return (
     <PageContainer>

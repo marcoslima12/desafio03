@@ -111,10 +111,16 @@ export const PostsHeader = styled.div`
 `;
 
 export const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  height: 10rem;
   input {
     box-sizing: border-box;
     padding: 0.75rem 0 0.75rem 1rem;
-    width: 100%;
+    width: inherit;
     border-radius: 6px;
     border: 1px solid var(--base-border, #1c2f41);
     background: var(--base-input, #040f1a);
@@ -129,18 +135,20 @@ export const StyledForm = styled.form`
 
     &:first-child {
       width: 40%;
-      margin-bottom: 1rem;
     }
   }
-`;
-
-export const StyledUserForm = styled(StyledForm)`
-  width: 40%;
-  margin-bottom: 1rem;
-`;
-
-export const StyledSearchForm = styled(StyledForm)`
-  width: 100%;
+  button {
+    cursor: pointer;
+    width: 40%;
+    box-sizing: border-box;
+    padding: 0.75rem 0 0.75rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--base-border, #1c2f41);
+    background: var(--base-input, #040f1a);
+    color: var(--base-label, #3a536b);
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+  }
 `;
 
 export const PostsContainer = styled.div`
