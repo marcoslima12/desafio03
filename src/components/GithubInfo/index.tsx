@@ -1,12 +1,20 @@
 import { GithubLogo, Buildings, Users } from "@phosphor-icons/react";
 import { Container } from "./styles";
 import { NumberLiteralType } from "typescript";
+import { Calendar, ChatCircle } from "phosphor-react";
 
 type GithubInfoProps = {
-  infoType?: "username" | "company" | "followers_number";
+  infoType?:
+    | "username"
+    | "company"
+    | "followers_number"
+    | "issueDate"
+    | "comments_number";
   username?: string;
   followers_number?: number;
   company?: string;
+  issueDate?: string;
+  comments_number?: number;
 };
 
 export function GithubInfo(props: GithubInfoProps) {
@@ -37,6 +45,22 @@ export function GithubInfo(props: GithubInfoProps) {
         </Container>
       );
       break;
+    case "issueDate":
+      componentToRender = (
+        <Container>
+          <Calendar size={18} />
+          {props.issueDate}
+        </Container>
+      );
+      break;
+      case "comments_number":
+        componentToRender = (
+          <Container>
+            <ChatCircle size={18} />
+           {props.comments_number} comentário(s)
+          </Container>
+        );
+        break;
     default:
       componentToRender = <></>;
       break;

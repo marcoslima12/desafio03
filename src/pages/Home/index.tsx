@@ -3,10 +3,7 @@ import { GithubInfo } from "../../components";
 import { BoxModel } from "../../components/Box";
 import { PageContainer } from "../../components/PageContainer";
 import { PostCard } from "../../components/Post";
-import {
-  PostsContainer,
-  StyledForm,
-} from "./styles";
+import { PostsContainer, StyledForm } from "./styles";
 import {
   BoxContent,
   ContentInfo,
@@ -91,19 +88,17 @@ export function Home() {
 
   /*https://api.github.com/repos/{owner}/{repo}/issues/{issue_number} */
 
-  useEffect(()=>{
-    if(search===''){
+  useEffect(() => {
+    if (search === "") {
       getUserInfo();
       getUserIssues();
-    }
-    else if(search!==''){
+    } else if (search !== "") {
       getUserInfo();
       getUserIssuesSearch();
+    } else {
+      return;
     }
-    else {
-      return
-    }
-  }, [inputUser, search])
+  }, [inputUser, search]);
 
   const getUserIssues = async () => {
     try {
@@ -131,7 +126,7 @@ export function Home() {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   const getUserInfo = async () => {
     try {
@@ -159,18 +154,12 @@ export function Home() {
             </NameGithubContainer>
             <p>{userData?.bio || "User bio"}</p>
             <GithubInfoContainer>
-              {userData?.login && (
-                <GithubInfo infoType="username" username={userData?.login} />
-              )}
-              {userData?.company && (
-                <GithubInfo infoType="company" company={userData?.company} />
-              )}
-              {userData?.followers && (
-                <GithubInfo
-                  infoType="followers_number"
-                  followers_number={userData?.followers}
-                />
-              )}
+              <GithubInfo infoType="username" username={userData?.login} />
+              <GithubInfo infoType="company" company={userData?.company} />
+              <GithubInfo
+                infoType="followers_number"
+                followers_number={userData?.followers}
+              />
             </GithubInfoContainer>
           </ContentInfo>
         </BoxContent>
