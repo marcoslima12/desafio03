@@ -124,18 +124,23 @@ export const StyledForm = styled.form`
       font-family: "Roboto", sans-serif;
     }
     color: var(--base-label, #3a536b);
-      font-size: 1rem;
-      font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+
+    &:first-child {
+      width: 40%;
+      margin-bottom: 1rem;
+    }
   }
 `;
 
 export const StyledUserForm = styled(StyledForm)`
   width: 40%;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 export const StyledSearchForm = styled(StyledForm)`
-  width: 100%
+  width: 100%;
 `;
 
 export const PostsContainer = styled.div`
