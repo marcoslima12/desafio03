@@ -15,7 +15,12 @@ export function PostCard(props: PostProps) {
   const url = `/post?${query}`;
 
   return (
-    <Link to={url}>
+    <Link
+      to={url}
+      style={{
+        textDecoration: "none",
+      }}
+    >
       <Container /* target="_blank" href={`/post/1`} */>
         <TitleTimeContainer>
           <h1>{props.title}</h1>

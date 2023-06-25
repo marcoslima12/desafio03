@@ -15,6 +15,8 @@ export const StyledLink = styled.a`
   font-weight: 700;
   line-height: 160%;
   text-transform: uppercase;
+  text-decoration: none;
+
 `;
 
 export const BoxContent = styled.div`

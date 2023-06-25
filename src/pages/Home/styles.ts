@@ -56,6 +56,7 @@ export const GitHubLink = styled.a`
   gap: 0.5rem;
   align-items: center;
   color: var(--brand-blue, #3294f8);
+  text-decoration: none;
 
   /* Components/Link */
   font-size: 0.75rem;
